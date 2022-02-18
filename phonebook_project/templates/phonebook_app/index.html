@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 style="margin-top: 2rem; font-size: 3rem;">Hello, world!</h1>
+<p>Data filtered by: {{ filter_description }}</p>
+<table class="ui celled table">
+  <thead>
+    <tr>
+      <th>Last name</th>
+      <th>First name</th>
+      <th>Age</th>
+      <th>City</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for person in persons %}
+    <tr>
+      <td>{{ person.last_name }}</td>
+      <td>{{ person.first_name }}</td>
+      <td>{{ person.age }} y.o.</td>
+      <td>{{ person.city }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock content %}

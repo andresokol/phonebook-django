@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="ui segment basic center aligned">
+  <h1>Welcome to our phonebook!</h1>
+
+  <p>Check out how cool we are:</p>
+
+  <div class="ui segment padded basic">
+    <div class="ui three statistics">
+      <div class="ui huge statistic">
+        <div class="value">
+          {{ stats.total_users }}
+        </div>
+        <div class="label">
+          total users
+        </div>
+      </div>
+      <div class="ui huge statistic">
+        <div class="value">
+          {{ stats.youngest }} y.o.
+        </div>
+        <div class="label">
+          youngest user
+        </div>
+      </div>
+      <div class="ui huge statistic">
+        <div class="value">
+          {{ stats.oldest }} y.o.
+        </div>
+        <div class="label">
+          oldest user
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
