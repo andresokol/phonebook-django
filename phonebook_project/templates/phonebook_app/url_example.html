@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Примеры работы ссылок</h1>
+
+<p>
+    <i>Смотрите одновременно и на код темплейта, и на отрендеренную страницу</i>
+</p>
+
+<p>Есть ссылки, в которых нет параметров, после рендера будут выглядеть так:</p>
+<ul>
+    <li>{% url 'phonebook_app:main_page' %}</li>
+    <li>{% url 'phonebook_app:stats' %}</li>
+</ul>
+
+<p>Есть ссылки, в которых один параметр, например:</p>
+<ul>
+    <li>{% url 'phonebook_app:list_by_city' 'Moscow' %}</li>
+</ul>
+
+<p>Есть ссылки, в которых много параметров, например:</p>
+<ul>
+    <li>{% url 'phonebook_app:list_by_city_and_age' 'Moscow' 39 %}</li>
+    <li>{% url 'phonebook_app:list_by_city_and_age_range' 'Moscow' 30 45 %}</li>
+</ul>
+
+<p>Параметры можно вставлять не только позиционно, но именованно (главное не
+    смешивать):</p>
+<ul>
+    <li>{% url 'phonebook_app:list_by_city' gorod='Moscow' %}</li>
+    <li>{% url 'phonebook_app:list_by_city_and_age' city='Moscow' age=39 %}</li>
+    <li>{% url 'phonebook_app:list_by_city_and_age_range' city='Moscow' age_from=30 age_to=45 %}
+    </li>
+</ul>
+
+<p>Во всех примерах выше я использовал напрямую значения (литералы), а можно
+    брать переменные из контекста</p>
+<ul>
+    <li>
+        {% url 'phonebook_app:list_by_city_and_age' city=city_from_context age=age_from_context %}
+    </li>
+    <li>
+        {% url 'phonebook_app:list_by_city' gorod=some_other_dict.nested_params_example %}
+    </li>
+</ul>
+
+<p>
+    Чтобы получить непосредственно ссылку, надо вставить результат в параметр
+    <code>href</code>:
+    <a
+        href="{% url 'phonebook_app:list_by_city_and_age' city_from_context age_from_context %}">
+        вот так
+    </a>
+</p>
+
+{% endblock content %}

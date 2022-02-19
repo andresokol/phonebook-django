@@ -13,3 +13,8 @@ class Person(models.Model):
             f"{self.last_name}, {self.first_name}, "
             f"{self.age} y.o., {self.city}"
         )
+
+    class Meta:
+        ordering = ['-last_name', '-first_name']
+        verbose_name = 'Человек из засписной книжки'
+        verbose_name_plural = 'Люди'
