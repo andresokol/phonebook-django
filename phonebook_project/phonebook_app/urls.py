@@ -24,4 +24,10 @@ urlpatterns = [
     ),
     path("person/<int:person_id>", views.person_view),
     path("url_example", views.url_example),
+    path("account/<slug:account_slug>/", views.account_form, name="account"),
+    path(
+        "account/<slug:sender_slug>/transfer/",
+        views.make_transaction,
+        name="make_transaction",
+    ),
 ]

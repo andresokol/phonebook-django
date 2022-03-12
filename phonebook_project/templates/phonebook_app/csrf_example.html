@@ -1,0 +1,29 @@
+<style>
+    input {
+        display: block;
+        margin: 10px 0;
+    }
+
+    form {
+        padding: 0 10px 10px 10px;
+        margin: 10px;
+        border: 1px solid #ddd;
+    }
+
+</style>
+
+<h1>Привет, {{ account.person_name }}</h1>
+
+<p>На твоем счету: <b>{{ account.amount }}</b> денег</p>
+
+<form action="{% url 'phonebook_app:make_transaction' account.account_slug %}">
+    <h3>Перевод денег</h3>
+
+    <span>Кому?</span>
+    <input type="text" name="receiver_slug" />
+
+    <span>Сколько?</span>
+    <input type="text" value="0" name="transfer_amount" />
+    
+    <input type="submit" value="Перечислить" />
+</form>

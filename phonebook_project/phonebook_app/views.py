@@ -1,9 +1,9 @@
 import json
 
 from django.db.models import Count, Min, Max
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404, render, redirect
 
-from phonebook_app.models import Person
+from .models import Person, Account
 
 
 def index(request):
@@ -83,7 +83,8 @@ def by_city_er(request, city_lowered: str):
 
     context = {
         "persons": result,
-        "filter_description": f"looking for {city_lowered}ers! (from city {city_lowered.capitalize()})",
+        "filter_description": f"looking for {city_lowered}ers! "
+        f"(from city {city_lowered.capitalize()})",
     }
 
     return render(request, "phonebook_app/index.html", context)
@@ -95,7 +96,7 @@ def person_view(request, person_id: int):
     context = {
         "persons": [selected_person],
         "general": {
-            "html_title": f"{selected_person.last_name} {selected_person.first_name}",
+            "html_title": f"{selected_person.last_name}",
             # или, если использовать __str__ из модели:
             # "html_title": str(selected_person),
         },
@@ -113,3 +114,35 @@ def url_example(request):
         },
     }
     return render(request, "phonebook_app/url_example.html", context)
+
+
+def account_form(request, account_slug: str):
+    account = get_object_or_404(Account, account_slug=account_slug)
+
+    return render(
+        request, "phonebook_app/csrf_example.html", {"account": account}
+    )
+
+
+def make_transaction(request, sender_slug: str):
+    receiver_slug = request.GET.get("receiver_slug")
+    transfer_amount = int(request.GET.get("transfer_amount"))
+
+    sender = get_object_or_404(Account, account_slug=sender_slug)
+    receiver = get_object_or_404(Account, account_slug=receiver_slug)
+
+    sender.amount -= transfer_amount
+    receiver.amount += transfer_amount
+
+    sender.save()
+    receiver.save()
+
+    print(
+        "\n\n\n",
+        f"Transfered {transfer_amount}",
+        f"from {sender_slug}",
+        f"to {receiver_slug}",
+        "\n\n\n",
+    )
+
+    return redirect("phonebook_app:account", sender_slug)

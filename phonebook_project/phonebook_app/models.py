@@ -15,6 +15,18 @@ class Person(models.Model):
         )
 
     class Meta:
-        ordering = ['-last_name', '-first_name']
-        verbose_name = 'Человек из засписной книжки'
-        verbose_name_plural = 'Люди'
+        ordering = ["-last_name", "-first_name"]
+        verbose_name = "Человек из засписной книжки"
+        verbose_name_plural = "Люди"
+
+
+class Account(models.Model):
+    account_slug = models.SlugField(unique=True)
+    amount = models.IntegerField(default=0)
+    person_name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return (
+            f"{self.person_name} ({self.account_slug}): "
+            f"{self.amount} денег"
+        )
