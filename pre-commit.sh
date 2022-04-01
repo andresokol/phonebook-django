@@ -1,5 +1,8 @@
+set -e
+set -o pipefail
+
 echo "=== Running isort ==="
-isort phonebook_project
+isort --profile black phonebook_project
 
 echo "=== Running black ==="
 black --line-length 79 phonebook_project
