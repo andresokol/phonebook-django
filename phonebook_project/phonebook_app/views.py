@@ -1,9 +1,9 @@
 import json
 
-from django.db.models import Count, Min, Max
-from django.shortcuts import get_object_or_404, render, redirect
+from django.db.models import Count, Max, Min
+from django.shortcuts import get_object_or_404, redirect, render
 
-from .models import Person, Account
+from .models import Account, Person
 
 
 def index(request):
@@ -70,7 +70,10 @@ def by_city_and_age_range(request, city: str, age_from: int, age_to: int):
 
     context = {
         "persons": result,
-        "filter_description": f"filtering by city = {city} and {age_from} <= age <= {age_to}",
+        "filter_description": (
+            f"filtering by city = {city} and"
+            + f" {age_from} <= age <= {age_to}"
+        ),
     }
 
     return render(request, "phonebook_app/index.html", context)
