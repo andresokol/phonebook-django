@@ -25,6 +25,8 @@ class PersonViewV1(APIView):
             # comment for feature-2
             # is is required?
             serialized.save()
+            # i think this is a mistake
+            # serialized.save()
             return Response(serialized.data)
         return Response(serialized.errors, status=status.HTTP_400_BAD_REQUEST)
 
