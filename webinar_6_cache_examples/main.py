@@ -5,13 +5,17 @@ from aiohttp import web
 from db import DatabaseConnection
 from models import Person
 
+from caches import persons_cache
+
 
 async def get_persons(request: web.Request) -> web.Response:
-    with DatabaseConnection() as connection:
-        connection.execute("SELECT * FROM phonebook_app_person")
-        data = connection.fetchall()
+    # with DatabaseConnection() as connection:
+    #     connection.execute("SELECT * FROM phonebook_app_person")
+    #     data = connection.fetchall()
 
-    persons = [Person(*values) for values in data]
+    # persons = [Person(*values) for values in data]
+
+    persons = persons_cache.get_cached()
 
     return web.json_response(
         {
@@ -29,7 +33,7 @@ def main():
     app = web.Application()
 
     app.router.add_get("/persons/", get_persons)
-    app.router.add_get("/persons/{city}/", get_persons_by_city)
+    app.router.add_get("/persons/{city}/{age}/", get_persons_by_city)
 
     web.run_app(app, port=3000)
 

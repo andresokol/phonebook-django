@@ -27,13 +27,13 @@ def find_min_rotation(word):
 
 
 def main():
-    word = generate_random_word(32)
-    print("Word:")
-    print(word)
+    word = generate_random_word(102400)
+    # print("Word:")
+    # print(word)
 
     min_rotation = find_min_rotation(word)
-    print("Min rotation:")
-    print(min_rotation)
+    # print("Min rotation:")
+    # print(min_rotation)
 
 
 if __name__ == "__main__":

@@ -1,10 +1,16 @@
-from django.urls import path
+from django.urls import include, path
+from rest_framework.routers import SimpleRouter
 
 from . import views
+from . import rest_views
 
 app_name = "phonebook_app"
 
 urlpatterns = [
+    path("v1/person/<int:person_id>/<int:age>", rest_views.PersonViewV1.as_view()),
+    path("v2/person/<int:pk>", rest_views.PersonViewV2.as_view()),
+    #
+    #
     path("", views.index, name="main_page"),
     path("stats", views.stats, name="stats"),
     path("by_city/<slug:gorod>", views.by_city, name="list_by_city"),
