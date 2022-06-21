@@ -22,6 +22,8 @@ class PersonViewV1(APIView):
         serialized = PersonSerializer(person, data=request.data)
 
         if serialized.is_valid():
+            # comment for feature-2
+            # is is required?
             serialized.save()
             return Response(serialized.data)
         return Response(serialized.errors, status=status.HTTP_400_BAD_REQUEST)
