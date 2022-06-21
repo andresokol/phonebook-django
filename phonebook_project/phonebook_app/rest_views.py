@@ -14,6 +14,7 @@ class PersonViewV1(APIView):
         person = get_object_or_404(Person, id=person_id)
         # comment from feature-1
         serialized = PersonSerializer(person)
+        # comment 2 from feature-1
         return Response(serialized.data)
 
     def post(self, request, person_id: int, age: int):
