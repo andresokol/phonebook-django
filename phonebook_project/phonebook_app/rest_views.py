@@ -12,6 +12,7 @@ from .models import Person
 class PersonViewV1(APIView):
     def get(self, request, person_id: int):
         person = get_object_or_404(Person, id=person_id)
+        # comment from feature-1
         serialized = PersonSerializer(person)
         return Response(serialized.data)
 
