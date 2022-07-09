@@ -1,12 +1,10 @@
 from django.shortcuts import get_object_or_404
-from rest_framework.views import APIView
+from rest_framework import generics, mixins, status
 from rest_framework.response import Response
-from rest_framework import status
-from rest_framework import mixins
-from rest_framework import generics
+from rest_framework.views import APIView
 
-from .serializers import PersonSerializer
 from .models import Person
+from .serializers import PersonSerializer
 
 
 class PersonViewV1(APIView):

@@ -1,0 +1,74 @@
+<html>
+
+<head>
+  <title>Todo List V1</title>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js">
+  </script>
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <script
+    src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js">
+  </script>
+  <style>
+    h1 {
+      font-size: 3rem !important;
+    }
+
+    div.item {
+      padding: 0.5em 0 !important;
+    }
+
+    div.item label {
+      font-size: 1.3rem !important;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="ui very padded text container" style="padding-top: 50px;">
+    <h1 class="ui header">Todo list</h1>
+
+    <div class="ui list" id="task_list">
+      {% for task in tasks %}
+      <div class="item">
+        <div class="ui checkbox">
+          <input type="checkbox" {% if task.is_done %}checked{% endif %}>
+          <label>{{task.title}}</label>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="ui action input">
+      <input type="text" placeholder="New task..." id="task_name">
+      <button class="ui button green" onclick="addTask()">Add</button>
+    </div>
+  </div>
+
+  <script>
+    function getTaskHtml(taskTitle) {
+      const rawHtml = `<div class="item">
+        <div class="ui checkbox">
+          <input type="checkbox">
+          <label>${taskTitle}</label>
+        </div>
+      </div>`;
+
+      return rawHtml;
+    }
+
+    function addTask() {
+      const newTaskTitle = $("#task_name").val();
+      const newTaskHtml = getTaskHtml(newTaskTitle);
+
+      const oldListHtml = $("#task_list").html();
+
+      $("#task_list").html(oldListHtml + newTaskHtml);
+      $("#task_name").val("");
+    }
+
+  </script>
+</body>
+
+</html>
